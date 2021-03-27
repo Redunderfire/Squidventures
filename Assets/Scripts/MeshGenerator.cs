@@ -5,6 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MeshGenerator : MonoBehaviour {
 
+    public string layerName;
     const int threadGroupSize = 8;
 
     [Header ("General Settings")]
@@ -347,6 +348,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geo
 
     Chunk CreateChunk (Vector3Int coord) {
         GameObject chunk = new GameObject ($"Chunk ({coord.x}, {coord.y}, {coord.z})");
+        chunk.layer = LayerMask.NameToLayer(layerName);
         chunk.transform.parent = chunkHolder.transform;
         Chunk newChunk = chunk.AddComponent<Chunk> ();
         newChunk.coord = coord;
