@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Player/GameInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Input/GameInput.inputactions'
 
 using System;
 using System.Collections;
@@ -47,6 +47,14 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""6f3f5a7c-590a-4be5-b63a-77fb25f3feca"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""e822cfea-2e6e-44eb-84b3-e6ae0e09b81c"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -139,6 +147,17 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""action"": ""lookY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58cce8a3-8d63-4bff-87f8-563df5087d48"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +170,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_lookX = m_Player.FindAction("lookX", throwIfNotFound: true);
         m_Player_lookY = m_Player.FindAction("lookY", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +224,7 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_lookX;
     private readonly InputAction m_Player_lookY;
+    private readonly InputAction m_Player_Sprint;
     public struct PlayerActions
     {
         private @GameInput m_Wrapper;
@@ -212,6 +233,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @lookX => m_Wrapper.m_Player_lookX;
         public InputAction @lookY => m_Wrapper.m_Player_lookY;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +255,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @lookY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookY;
                 @lookY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookY;
                 @lookY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookY;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @lookY.started += instance.OnLookY;
                 @lookY.performed += instance.OnLookY;
                 @lookY.canceled += instance.OnLookY;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @GameInput : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLookX(InputAction.CallbackContext context);
         void OnLookY(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }
