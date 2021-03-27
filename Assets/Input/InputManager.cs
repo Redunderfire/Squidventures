@@ -21,9 +21,12 @@ public class InputManager : MonoBehaviour
         //Read look input
         playerActions.lookX.performed += ctx => rawLookInput.x = ctx.ReadValue<float>();
         playerActions.lookY.performed += ctx => rawLookInput.y = ctx.ReadValue<float>();
-        playerActions.Jump.performed += _ =>    playerMove.JumpEvent();
         //Read movement input
         playerActions.Move.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
+        //Read sprint and jump input
+        playerActions.Jump.performed += _ => playerMove.JumpEvent();
+        playerActions.Sprint.started += _ => playerMove.SprintEvent(true);
+        playerActions.Sprint.canceled += _ => playerMove.SprintEvent(false);
     }
 
     private void Update(){

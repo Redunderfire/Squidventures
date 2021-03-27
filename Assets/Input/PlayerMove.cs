@@ -7,7 +7,8 @@ public class PlayerMove : MonoBehaviour
 
     public CharacterController controller;
 
-    [SerializeField] public float speed = 12f;
+    [SerializeField] public float walkingSpeed = 7f;
+    [SerializeField] public float runningSpeed = 9.5f;
     [SerializeField] public float gravity = -9.81f;
     public float jumpHeight = 3f;
 
@@ -16,6 +17,8 @@ public class PlayerMove : MonoBehaviour
     public LayerMask groundMask;
     bool isGrounded, jump;
     float x, z;
+    float speed = 7f;
+    
     Vector3 velocity;
 
     // Update is called once per frame
@@ -48,6 +51,14 @@ public class PlayerMove : MonoBehaviour
             jump = true;
         } else {
             jump = false;
+        }
+    }
+
+    public void SprintEvent(bool sprinting){
+        if (sprinting && isGrounded) {
+            speed = runningSpeed;
+        } else {
+            speed = walkingSpeed;
         }
     }
 }
