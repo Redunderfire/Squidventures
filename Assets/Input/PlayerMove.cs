@@ -27,13 +27,14 @@ public class PlayerMove : MonoBehaviour
         if(isGrounded && velocity.y < 0){
             velocity.y = -2f;
         }
-        if(jump && isGrounded){
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        if(jump){
+            velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
             jump = false;
         }
+
+        velocity.y += gravity * Time.deltaTime;
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move*speed*Time.deltaTime);
-        velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
@@ -43,6 +44,10 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void JumpEvent() {
-        jump = true;
+        if(isGrounded){
+            jump = true;
+        } else {
+            jump = false;
+        }
     }
 }
