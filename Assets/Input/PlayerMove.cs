@@ -11,41 +11,47 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] public float runningSpeed = 9.5f;
     [SerializeField] public float gravity = -9.81f;
     public float jumpHeight = 3f;
-
-   // public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     bool isGrounded, jump;
-    float x, z;
-    float speed = 7f;
-    
+    float x, z, speed;
+       
     Vector3 velocity;
 
-    // Update is called once per frame
-    void Update()
+    // Sets speed at beginning, consequence of the way Unity handles floats outside of this scope
+    private void Start(){
+        SprintEvent(false);
+    }
+    //Update is called once per frame
+    private void Update()
     {
+        //Check for ground collision with the player
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
 
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //Grounding logic
         if(isGrounded && velocity.y < 0){
             velocity.y = -2f;
         }
+
+        //Jump logic
         if(jump){
             velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
             jump = false;
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move*speed*Time.deltaTime);
-        controller.Move(velocity * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime; //Update Gravity
+        Vector3 move = transform.right * x + transform.forward * z; 
+        controller.Move(move * speed * Time.deltaTime); //Apply horizontal movement
+        controller.Move(velocity * Time.deltaTime); //Apply vertical velocity
     }
 
+    //Receive input from InputManager
     public void ReceiveInput(Vector2 input){
         x = input.x;
         z = input.y;
     }
 
+    //Set jump
     public void JumpEvent() {
         if(isGrounded){
             jump = true;
@@ -54,6 +60,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    //Set speed
     public void SprintEvent(bool sprinting){
         if (sprinting && isGrounded) {
             speed = runningSpeed;
