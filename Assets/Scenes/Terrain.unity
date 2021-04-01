@@ -598,7 +598,7 @@ MonoBehaviour:
   isoLevel: 0.5
   boundsSize: 20
   offset: {x: 0, y: 0, z: 0}
-  numPointsPerAxis: 50
+  numPointsPerAxis: 20
   showBoundsGizmo: 1
   boundsGizmoCol: {r: 1, g: 1, b: 1, a: 0.03529412}
 --- !u!4 &1227901945
