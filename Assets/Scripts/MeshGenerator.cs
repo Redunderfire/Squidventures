@@ -6,6 +6,7 @@ using UnityEngine;
 public class MeshGenerator : MonoBehaviour {
 
     public string layerName;
+    public int smoothing = 45;
     const int threadGroupSize = 8;
 
     [Header ("General Settings")]
@@ -234,7 +235,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geo
 
         var scale = chunk.GetComponent<Transform>().localScale;
         mesh.SetUVs(0, UvCalculator.CalculateUVs(vertices, scale.magnitude));
-        NormalSolver.RecalculateNormals(mesh, 60);
+        NormalSolver.RecalculateNormals(mesh, smoothing);
 
         chunk.UpdateColliders();
 }
