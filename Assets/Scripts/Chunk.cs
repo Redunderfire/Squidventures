@@ -22,6 +22,18 @@ public class Chunk : MonoBehaviour {
         }
     }
 
+    //Update chunk colliders
+    public void UpdateColliders() {
+        if (generateCollider) {
+            meshCollider.sharedMesh = null;
+            meshCollider.sharedMesh = mesh;
+            Debug.Log("Setup mesh ran");
+            // force update
+            meshCollider.enabled = false;
+            meshCollider.enabled = true;
+        }
+    }
+
     // Add components/get references in case lost (references can be lost when working in the editor)
     public void SetUp (Material mat, bool generateCollider) {
         this.generateCollider = generateCollider;
@@ -52,16 +64,7 @@ public class Chunk : MonoBehaviour {
             meshFilter.sharedMesh = mesh;
         }
 
-        if (generateCollider) {
-            if (meshCollider.sharedMesh == null) {
-                mesh.RecalculateBounds();
-                meshCollider.sharedMesh = mesh;
-                Debug.Log("Setup mesh ran");
-            }
-            // force update
-            meshCollider.enabled = false;
-            meshCollider.enabled = true;
-        }
+        //UpdateColliders();
 
         meshRenderer.material = mat;
     }

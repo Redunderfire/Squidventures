@@ -232,7 +232,13 @@ https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geo
         mesh.triangles = meshTriangles;
         mesh.name = chunk.name;
 
-        //////////////////////////////////
+        var scale = chunk.GetComponent<Transform>().localScale;
+        mesh.SetUVs(0, UvCalculator.CalculateUVs(vertices, scale.magnitude));
+        NormalSolver.RecalculateNormals(mesh, 60);
+
+        chunk.UpdateColliders();
+}
+/*        //////////////////////////////////
         //Collider Fix
         //  Mesh was being regenerated without updating mesh collider.
         mesh.RecalculateBounds();
@@ -240,7 +246,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geo
         //////////////////////////////////
         
         mesh.RecalculateNormals ();
-    }
+    }*/
 
     public void UpdateAllChunks () {
 
@@ -301,6 +307,15 @@ https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geo
                 chunkHolder = GameObject.Find (chunkHolderName);
             } else {
                 chunkHolder = new GameObject (chunkHolderName);
+
+                if (generateColliders){
+                    //add rigidbody so collisions are enforced
+                    var rigidBody = chunkHolder.AddComponent<Rigidbody>();
+                    rigidBody.useGravity = false;
+                    rigidBody.isKinematic = true;
+                    rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+                    rigidBody.detectCollisions = true;
+                }
             }
         }
     }
