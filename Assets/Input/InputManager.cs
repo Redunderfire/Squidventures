@@ -6,9 +6,11 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] PlayerLook playerLook;
     [SerializeField] PlayerMove playerMove;
+    [SerializeField] PauseMenu pauseMenu;
 
    GameInput gameInput;
    GameInput.PlayerActions playerActions;
+   GameInput.UIActions uIActions;
    
    Vector2 horizontalInput;
    Vector2 rawLookInput;
@@ -17,6 +19,7 @@ public class InputManager : MonoBehaviour
         //Setup variables
         gameInput = new GameInput();
         playerActions = gameInput.Player;
+        uIActions = gameInput.UI;
 
         //Read look input
         playerActions.lookX.performed += ctx => rawLookInput.x = ctx.ReadValue<float>();
@@ -29,6 +32,9 @@ public class InputManager : MonoBehaviour
         playerActions.Jump.performed += _ => playerMove.JumpEvent();
         playerActions.Sprint.started += _ => playerMove.SprintEvent(true);
         playerActions.Sprint.canceled += _ => playerMove.SprintEvent(false);
+
+        //Read pause input
+        uIActions.Pause.performed += _ => pauseMenu.PauseEvent();
     }
 
     private void Update(){
