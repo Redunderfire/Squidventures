@@ -1593,6 +1593,7 @@ GameObject:
   - component: {fileID: 2070560903}
   - component: {fileID: 2070560905}
   - component: {fileID: 2070560902}
+  - component: {fileID: 2070560906}
   m_Layer: 0
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -1670,3 +1671,16 @@ MonoBehaviour:
   playerLook: {fileID: 327418026}
   playerMove: {fileID: 2070560902}
   pauseMenu: {fileID: 1214319512}
+--- !u!114 &2070560906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070560901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458867fa9d506024098593ba59f878f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 6
