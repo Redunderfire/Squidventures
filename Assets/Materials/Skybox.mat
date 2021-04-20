@@ -8,11 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skybox
-  m_Shader: {fileID: -6465566751694194690, guid: 4fe67354050543f48b2d2f2f95e14336,
+  m_Shader: {fileID: -6465566751694194690, guid: 5a0f18363b79ff04bb9801f63a67e6d2,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b336f30a3aca481e9b254366d52e3e42_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 6763c3d253a4e5b42a84dfa2d52a6b91, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -81,6 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_306a9a463924466784388514eb1701e6: 10
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
