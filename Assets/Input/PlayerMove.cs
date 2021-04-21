@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [System.NonSerialized]public float currentFuel; //needs to be public for HUD to access
 
-    private CharacterController _controller;
-    public float _fuel;
+    [Header("Movement Settings")]
+    [SerializeField]private float walkingSpeed = 7f;
+    [SerializeField]private float runningSpeed = 9.5f;
+    [SerializeField]private float jumpHeight = 3f;
+    [SerializeField]private float gravity = -9.81f;
 
-    [SerializeField] public float walkingSpeed = 7f;
-    [SerializeField] public float runningSpeed = 9.5f;
-    [SerializeField] public float gravity = -9.81f;
-    public float jumpHeight = 3f;
-    public float maxFuel = 100f;
-    public float fuelReduce = 100f;
-    public float fuelGain = 10f;
-    public float baseJetpackVelocity = 1.5f;
-    public float jetpackAcceleration = 1f;
-    public float terminalVelocity = 2f;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [Header("Jetpack Settings")]
+    [SerializeField]private float maxFuel = 100f;
+    [SerializeField]private float fuelReduce = 18f;
+    [SerializeField]private float fuelGain = 14f;
+    [SerializeField]private float baseJetpackVelocity = 1f;
+    [SerializeField]private float jetpackAcceleration = 1.1f;
+    [SerializeField]private float terminalVelocity = 2.5f;
+    
+    [Header("Ground Detection")]
+    [SerializeField]private float groundDistance = 0.4f;
+    [SerializeField]private LayerMask groundMask;
+
+    private CharacterController controller;
     private bool isGrounded, jump, boost;
     private float x, z, speed, jetpackVelocity;
     private Vector3 yVelocity = Vector3.zero;
@@ -27,49 +32,51 @@ public class PlayerMove : MonoBehaviour
     // Sets speed at beginning, consequence of the way Unity handles floats outside of this scope
     private void Start(){
         SprintEvent(false);
-        _controller = this.GetComponent<CharacterController>();
-        _fuel = maxFuel;
+        controller = this.GetComponent<CharacterController>();
+        currentFuel = maxFuel;
     }
     //Update is called once per frame
-    private void Update()
-    {
-        //Ground Checks and velocity adjustment
+    private void Update(){
+        //Ground Checks, velocity adjustment, and fuel gain
         isGrounded =  isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
         if (isGrounded && !boost){
-            if(_fuel < maxFuel){
-            _fuel += fuelGain*Time.deltaTime;
+            if(currentFuel < maxFuel){
+            currentFuel += fuelGain*Time.deltaTime;
             } else {
-                _fuel = maxFuel;
+                currentFuel = maxFuel;
             }
+
             if(yVelocity.y < 0){
                 yVelocity.y = 0f;   
             }
-
         }
+
         if (yVelocity.y > terminalVelocity){ //clamp velocity
             yVelocity.y = terminalVelocity;
         }
 
-       Vector3 move = new Vector3(x, 0, z);
+        //Move forward, left, and right
+       Vector3 move = new Vector3(x, 0, z); 
        move = transform.TransformDirection(move.normalized);
-       _controller.Move(move * Time.deltaTime * speed);
+       controller.Move(move * Time.deltaTime * speed);
 
+        //jump
         if(jump){
             yVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             jump = false;
         }
 
-        if(boost && _fuel > 0.00f){
+        //boost
+        if(boost && currentFuel > 0.00f){
              yVelocity.y += 1.0f * jetpackVelocity;
              jetpackVelocity += Mathf.Pow(jetpackAcceleration, 2) * Time.deltaTime; 
-             _fuel -= fuelReduce*Time.deltaTime;
+             currentFuel -= fuelReduce*Time.deltaTime;
         } else {
             jetpackVelocity = baseJetpackVelocity;
         }
 
         yVelocity.y += gravity * Time.deltaTime;
-        _controller.Move(yVelocity * Time.deltaTime);
-
+        controller.Move(yVelocity * Time.deltaTime);
     }
 
     //Receive input from InputManager
@@ -79,22 +86,17 @@ public class PlayerMove : MonoBehaviour
     }
 
     //Set jump
-
-
     public void JumpEvent(bool pressed) {
         if(pressed){
             if(isGrounded){
                 jump = true;
                 boost = false;
-                Debug.Log("jump event logged");  
             } else {
                 jump = false;
                 boost = true;
-                Debug.Log("boost event logged");
             }
         }
         if(!pressed){
-            Debug.Log("Jump events canceled");
                 jump = false;
                 boost = false;
         }
