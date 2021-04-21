@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
 
     private CharacterController _controller;
-    private float _fuel;
+    public float _fuel;
 
     [SerializeField] public float walkingSpeed = 7f;
     [SerializeField] public float runningSpeed = 9.5f;
@@ -14,12 +14,14 @@ public class PlayerMove : MonoBehaviour
     public float jumpHeight = 3f;
     public float maxFuel = 100f;
     public float fuelReduce = 100f;
-    public float jetpackAcceleration = 1.5f;
-    public float maxJetpackVelocity = 1.5f;
+    public float fuelGain = 10f;
+    public float baseJetpackVelocity = 1.5f;
+    public float jetpackAcceleration = 1f;
+    public float terminalVelocity = 2f;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    bool isGrounded, jump, boost;
-    private float x, z, speed;
+    private bool isGrounded, jump, boost;
+    private float x, z, speed, jetpackVelocity;
     private Vector3 yVelocity = Vector3.zero;
 
     // Sets speed at beginning, consequence of the way Unity handles floats outside of this scope
@@ -33,12 +35,19 @@ public class PlayerMove : MonoBehaviour
     {
         //Ground Checks and velocity adjustment
         isGrounded =  isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
-        if (isGrounded && yVelocity.y < 0)
-        {
-            yVelocity.y = 0f;
+        if (isGrounded && !boost){
+            if(_fuel < maxFuel){
+            _fuel += fuelGain*Time.deltaTime;
+            } else {
+                _fuel = maxFuel;
+            }
+            if(yVelocity.y < 0){
+                yVelocity.y = 0f;   
+            }
+
         }
-        if (yVelocity.y > maxJetpackVelocity){ //clamp velocity
-            yVelocity.y = maxJetpackVelocity;
+        if (yVelocity.y > terminalVelocity){ //clamp velocity
+            yVelocity.y = terminalVelocity;
         }
 
        Vector3 move = new Vector3(x, 0, z);
@@ -49,8 +58,13 @@ public class PlayerMove : MonoBehaviour
             yVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             jump = false;
         }
-        if(boost){
-             yVelocity.y += 1.0f * jetpackAcceleration ;
+
+        if(boost && _fuel > 0.00f){
+             yVelocity.y += 1.0f * jetpackVelocity;
+             jetpackVelocity += Mathf.Pow(jetpackAcceleration, 2) * Time.deltaTime; 
+             _fuel -= fuelReduce*Time.deltaTime;
+        } else {
+            jetpackVelocity = baseJetpackVelocity;
         }
 
         yVelocity.y += gravity * Time.deltaTime;
