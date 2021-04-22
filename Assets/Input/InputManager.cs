@@ -29,7 +29,8 @@ public class InputManager : MonoBehaviour
         playerActions.Move.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
 
         //Read sprint and jump input
-        playerActions.Jump.performed += _ => playerMove.JumpEvent();
+        playerActions.Jump.started += _ => playerMove.JumpEvent(true);
+        playerActions.Jump.canceled += _ => playerMove.JumpEvent(false);
         playerActions.Sprint.started += _ => playerMove.SprintEvent(true);
         playerActions.Sprint.canceled += _ => playerMove.SprintEvent(false);
 
