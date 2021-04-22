@@ -13,9 +13,6 @@
             "m_Id": "2f14bbbd25294c3ca4e49db1ea68fa19"
         },
         {
-            "m_Id": "6dd75ef19780404b98b4f0916e386d35"
-        },
-        {
             "m_Id": "27fb09b1539c480eb1c97f0e5747889d"
         }
     ],
@@ -694,11 +691,11 @@
     "m_Guid": {
         "m_GuidSerialized": "84fbaf36-4ad2-414f-9077-52ec905b0b09"
     },
-    "m_Name": "Corona Power",
+    "m_Name": "Corona size",
     "m_DefaultReferenceName": "Vector1_27fb09b1539c480eb1c97f0e5747889d",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -732,7 +729,7 @@
     "m_DefaultReferenceName": "Vector1_2f14bbbd25294c3ca4e49db1ea68fa19",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -824,7 +821,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -1059,30 +1056,6 @@
 }
 
 {
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "6dd75ef19780404b98b4f0916e386d35",
-    "m_Guid": {
-        "m_GuidSerialized": "553776a9-f929-417a-b831-074c3947389a"
-    },
-    "m_Name": "Corona Color",
-    "m_DefaultReferenceName": "Color_6dd75ef19780404b98b4f0916e386d35",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 0.7547169923782349,
-        "g": 0.43130797147750857,
-        "b": 0.11676748096942902,
-        "a": 0.0
-    },
-    "m_ColorMode": 0
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "6e822f8fa84f42f48241946b31a42e4a",
@@ -1191,7 +1164,7 @@
     "m_DefaultReferenceName": "Vector3_7bb0a6b10e434d479a32d431334ef871",
     "m_OverrideReferenceName": "_SunDirection",
     "m_GeneratePropertyBlock": false,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -1659,7 +1632,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -1679,7 +1652,7 @@
     },
     "m_Name": "Normalize",
     "m_DrawState": {
-        "m_Expanded": true,
+        "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
             "x": -717.5999145507813,
@@ -1991,7 +1964,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_PreviewMode": 2,
     "m_CustomColors": {
@@ -2089,7 +2062,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_PreviewMode": 0,
     "m_CustomColors": {

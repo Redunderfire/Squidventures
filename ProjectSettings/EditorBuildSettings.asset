@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Terrain.unity
     guid: 8c7a90472e0ce44c399bb36f11b1af13
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 70dc1a14ba99dc34fa61517383e433dc,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: fd0ce3a17d8067f42ab26084964762c6, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: 6b775116559f1f14f9f0aba74f9f24d0, type: 2}
