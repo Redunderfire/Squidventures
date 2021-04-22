@@ -19,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]private float baseJetpackVelocity = 1f;
     [SerializeField]private float jetpackAcceleration = 1.1f;
     [SerializeField]private float terminalVelocity = 2.5f;
+    public JetpackBar jetpackBar;
     
     [Header("Ground Detection")]
     [SerializeField]private float groundDistance = 0.4f;
@@ -34,6 +35,7 @@ public class PlayerMove : MonoBehaviour
         SprintEvent(false);
         controller = this.GetComponent<CharacterController>();
         currentFuel = maxFuel;
+        jetpackBar.setMaxFuel((int)maxFuel);
     }
     //Update is called once per frame
     private void Update(){
@@ -77,6 +79,8 @@ public class PlayerMove : MonoBehaviour
 
         yVelocity.y += gravity * Time.deltaTime;
         controller.Move(yVelocity * Time.deltaTime);
+
+        jetpackBar.setFuel((int)currentFuel);
     }
 
     //Receive input from InputManager
