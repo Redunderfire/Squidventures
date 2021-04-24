@@ -26,8 +26,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]private LayerMask groundMask;
 
     private CharacterController controller;
-    private bool isGrounded, jump, boost;
-    private float x, z, speed, jetpackVelocity;
+    private bool jump, boost;
+
+    private float x, z, jetpackVelocity;
+    public bool isGrounded{get; set;}
+    public float speed{get; set;}
     private Vector3 yVelocity = Vector3.zero;
 
     // Sets speed at beginning, consequence of the way Unity handles floats outside of this scope
@@ -40,7 +43,7 @@ public class PlayerMove : MonoBehaviour
     //Update is called once per frame
     private void Update(){
         //Ground Checks, velocity adjustment, and fuel gain
-        isGrounded =  isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
         if (isGrounded && !boost){
             if(currentFuel < maxFuel){
             currentFuel += fuelGain*Time.deltaTime;
