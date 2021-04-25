@@ -17,21 +17,11 @@ public class SpawnLocation : MonoBehaviour
         {
             SpawnPart(i);
         }
-            
-            
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnPart(int n)
     {
         Vector3 pos = center + new Vector3(Random.Range(-size.x / 2 , size.x/2), Random.Range(-size.y / 2, size.y / 2), Random.Range(-size.z / 2, size.z / 2));
-
         GameObject tempPrefab = Instantiate(shipPartPrefab,pos, Quaternion.identity);
         tempPrefab.name = "Ship Part " + n;
         IdentifyChunk(pos);
@@ -52,7 +42,7 @@ public class SpawnLocation : MonoBehaviour
     }
     public void HasShipPart(Chunk justCreated)
     {
-        Debug.Log(justCreated.name);
+        Debug.Log("Checking" + justCreated.name + " for ship parts...");
         foreach (string partName in chunks)
         {
             if(partName == justCreated.name)
@@ -60,10 +50,11 @@ public class SpawnLocation : MonoBehaviour
                 Debug.Log("Matched " + partName);
                 //Bad bad shit code. Finds position from searching for game object by name. should change the list to be of gameobjects to hold the prefabs to get rid of this terrrible code
                 GameObject tempPartPrefab = GameObject.Find("Ship Part " + chunks.IndexOf(partName) + 1);
-                PlacePart(  //it should be fine might be a breakpoint though... idfk
-                            IsInside(justCreated.GetComponent<Collider>(), tempPartPrefab.transform.position), tempPartPrefab);
+                Debug.Log("test");
+                PlacePart(true, tempPartPrefab);
             }
-                
+//IsInside(justCreated.GetComponent<MeshCollider>()
+//tempPartPrefab.transform.position)
         }
     }
 
@@ -86,7 +77,7 @@ public class SpawnLocation : MonoBehaviour
         }
     }
 
-    public bool IsInside(Collider c, Vector3 point)
+    public bool IsInside(MeshCollider c, Vector3 point)
     {
         Vector3 closest = c.ClosestPoint(point);
         // Because closest=point if inside - not clear from docs I feel

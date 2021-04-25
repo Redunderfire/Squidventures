@@ -44,6 +44,7 @@ public class MeshGenerator : MonoBehaviour {
     Dictionary<Vector3Int, Chunk> existingChunks;
     Queue<Chunk> recycleableChunks;
 
+    public SpawnLocation spawnLoc;
     // Buffers
     ComputeBuffer triangleBuffer;
     ComputeBuffer pointsBuffer;
@@ -60,6 +61,11 @@ public class MeshGenerator : MonoBehaviour {
                 Destroy (oldChunks[i].gameObject);
             }
 
+        }
+
+        spawnLoc = GameObject.Find("Spawner").GetComponent<SpawnLocation>();
+        if(spawnLoc == null){
+            Debug.Log("null");
         }
     }
 
@@ -166,7 +172,7 @@ public class MeshGenerator : MonoBehaviour {
                                 existingChunks.Add (coord, chunk);
                                 chunks.Add (chunk);
                                 UpdateChunkMesh (chunk);
-                                GetComponent<SpawnLocation>().HasShipPart(chunk);
+                                spawnLoc.HasShipPart(chunk);
                             }
                         }
                     }
