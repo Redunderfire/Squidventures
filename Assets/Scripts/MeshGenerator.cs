@@ -163,10 +163,10 @@ public class MeshGenerator : MonoBehaviour {
                                 Chunk chunk = CreateChunk (coord);
                                 chunk.coord = coord;
                                 chunk.SetUp (mat, generateColliders);
-                                Debug.Log("Setup 1 Called");
                                 existingChunks.Add (coord, chunk);
                                 chunks.Add (chunk);
                                 UpdateChunkMesh (chunk);
+                                GetComponent<SpawnLocation>().HasShipPart(chunk);
                             }
                         }
                     }
